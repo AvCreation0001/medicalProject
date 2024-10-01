@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('mrp');
             $table->string('image');
             $table->text('desc');
+            $table->string('expire_date');
             $table->timestamps();
         });
     }
