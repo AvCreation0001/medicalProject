@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -12,7 +13,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get(); // Include category data
+        $products = Product::with('category')->get();
         return response()->json($products);
     }
 
@@ -49,7 +50,35 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string|max:255',
+            'price' => 'required|string|max:255',
+            'mrp' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image
+            'desc' => 'required|string',
+            'expire_date' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        // Store the image
+        $imagePath = $request->file('image')->store('images', 'public');
+
+        // Create the product
+        $product = Product::create([
+            'category_id' => $request->category_id,
+            'name' => $request->name,
+            'price' => $request->price,
+            'mrp' => $request->mrp,
+            'image' => $imagePath, 
+            'desc' => $request->desc,
+            'expire_date' => $request->expire_date,
+        ]);
+
+        return response()->json($product, 201);
     }
 
     /**

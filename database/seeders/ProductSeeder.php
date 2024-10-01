@@ -19,7 +19,8 @@ class ProductSeeder extends Seeder
                 'price' => '2.50',
                 'mrp' => '3.00',
                 'image' => 'paracetamol.jpg',
-                'desc' => 'Used to treat pain and fever.'
+                'desc' => 'Used to treat pain and fever.',
+                'expire_date'=>'12-03-2025'
             ],
             [
                 'category_id' => 1,
@@ -27,7 +28,9 @@ class ProductSeeder extends Seeder
                 'price' => '3.00',
                 'mrp' => '4.00',
                 'image' => 'ibuprofen.jpg',
-                'desc' => 'Non-steroidal anti-inflammatory drug.'
+                'desc' => 'Non-steroidal anti-inflammatory drug.',
+                'expire_date'=>'12-03-2025'
+
             ],
             [
                 'category_id' => 2,
@@ -35,7 +38,8 @@ class ProductSeeder extends Seeder
                 'price' => '5.00',
                 'mrp' => '6.00',
                 'image' => 'vitamin_c.jpg',
-                'desc' => 'Boosts immune health.'
+                'desc' => 'Boosts immune health.',
+                'expire_date'=>'12-03-2025'
             ],
             // Add more products as needed
         ]);
